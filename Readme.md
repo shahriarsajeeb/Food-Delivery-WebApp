@@ -1,5 +1,4 @@
 ![Project Image](./cover.png)
-
 # Food Delivery Web Application using Microservice Architecture with Nest.js, GraphQL, Next.js, Prisma
 
 Welcome to the open-source Food Delivery Web Application series utilizing Microservice Architecture. This project aims to create a comprehensive Food Delivery Web Application employing Microservice Architecture. Separate applications will be built for Admin, User, Restaurant Owner, and Delivery Man. The entire project will be freely accessible, and this README covers the initial part, with more to come.
@@ -14,4 +13,4 @@ Given the Microservice Architecture, it's challenging to enumerate all the exact
 
 ## Support Our Work
 
-You can support our efforts based on your eligibility. Your support is appreciated and encourages us to create more free projects. If you wish to contribute, you can donate starting from $1. [Click here to donate](https://www.becodemy.com/support/AI-Prompt-Selling-Marketplace-with-next-13.5,Typescript,Next-UI,Prisma,Mongodb,Full-Project)
+You can support our efforts based on your eligibility. Your support is appreciated and encourages us to create more free projects. If you wish to contribute, you can donate starting from $1. [Click here to donate](https://www.becodemy.com/support/Food-Delivery-Web-Application-using-Microservice-Architecture-with-Nestjs-GraphQL-Nextjs-Prisma)

@@ -44,13 +44,18 @@ export class UsersService {
       throw new BadRequestException('User already exist with this email!');
     }
 
-    const isPhoneNumberExist = await this.prisma.user.findUnique({
+    const phoneNumbersToCheck = [phone_number];
+
+    const usersWithPhoneNumber = await this.prisma.user.findMany({
       where: {
-        phone_number,
+        phone_number: {
+          not: null,
+          in: phoneNumbersToCheck,
+        },
       },
     });
 
-    if (isPhoneNumberExist) {
+    if (usersWithPhoneNumber.length > 0) {
       throw new BadRequestException(
         'User already exist with this phone number!',
       );

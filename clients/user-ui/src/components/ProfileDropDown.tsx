@@ -32,10 +32,14 @@ const ProfileDropDown = () => {
   }, [loading, user, open, data]);
 
   const logoutHandler = () => {
-    Cookies.remove("access_token");
-    Cookies.remove("refresh_token");
-    toast.success("Log out successful!");
-    window.location.reload();
+    if (data?.user) {
+      signOut();
+    } else {
+      Cookies.remove("access_token");
+      Cookies.remove("refresh_token");
+      toast.success("Log out successful!");
+      window.location.reload();
+    }
   };
 
   const addUser = async (user: any) => {
@@ -68,7 +72,7 @@ const ProfileDropDown = () => {
             <DropdownItem
               key="logout"
               color="danger"
-              onClick={() =>  signOut() || logoutHandler}
+              onClick={() => logoutHandler()}
             >
               Log Out
             </DropdownItem>
