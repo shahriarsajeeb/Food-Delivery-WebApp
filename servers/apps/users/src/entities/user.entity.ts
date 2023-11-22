@@ -39,7 +39,7 @@ export class User {
   @Field({ nullable: true })
   address: string;
 
-  @Field()
+  @Field({ nullable: true })
   phone_number: number;
 
   @Field()
