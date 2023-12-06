@@ -33,7 +33,7 @@ export class AuthGuard implements CanActivate {
 
       const expirationTime = decoded?.exp;
 
-      if (expirationTime < Date.now()) {
+      if (expirationTime * 1000 < Date.now()) {
         await this.updateAccessToken(req);
       }
     }
