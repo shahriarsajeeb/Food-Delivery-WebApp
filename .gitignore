@@ -4,4 +4,7 @@
 /package-lock.json
 
 # nx cache
-/.nx
+.nx
+
+# DS store
+.DS_Store
