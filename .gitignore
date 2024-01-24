@@ -2,3 +2,6 @@
 
 # lock files
 /package-lock.json
+
+# nx cache
+/.nx
