@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  User
+}
+
+model Avatars {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  public_id String
+  url       String
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String @unique @db.ObjectId
+}
+
+model User {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String    @unique
+  // phone_number Float? @unique  ===> we can't use this line because sometime our phone number is null and then we can't compare it
+  phone_number Float?
+  address      String?
+  password     String
+  avatar       Avatars?
+  reviews      Reviews[]
+  role         Role      @default(User)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@unique([email, phone_number], name: "unique_email_phone_number") // In this approach, a composite unique constraint (@@unique) is created on both email and phone_number. This allows phone_number to be null but enforces uniqueness when phone_number is not null.
+}
+
+model Reviews {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  review String
+  rating Float
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  food   Foods  @relation(fields: [foodId], references: [id])
+  foodId String @db.ObjectId
+}
+
+model Foods {
+  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String
+  price          Int
+  estimatedPrice Int
+  category       String
+  images         String[]
+  restaurantId   String     @db.ObjectId
+  restaurant     Restaurant @relation(fields: [restaurantId], references: [id])
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  Reviews        Reviews[]
+}
+
+model Restaurant {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  country      String
+  city         String
+  address      String
+  email        String   @unique
+  phone_number Float    @unique
+  password     String
+  Foods        Foods[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

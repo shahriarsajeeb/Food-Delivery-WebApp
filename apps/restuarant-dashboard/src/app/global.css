@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  font-family: sans-serif;
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.title{
+  font-size: 30px;
+  font-family: sans-serif;
+  text-align: center;
+}
+.label{
+  font-size: 18px;
+  color: white;
+  display: block;
+}
+.input{
+  width: 100%;
+  background: transparent;
+  border: 1px solid #999;
+  border-radius: 4px;
+  height: 40px;
+  padding: 0px 8px;
+  outline: none;
+  margin-top: 10px;
+}
+.button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px; 
+  border-radius: 9999px;
+  cursor: pointer;
+  background: #2190ff;
+  height: 45px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-2px);
+  }
+  40% {
+    transform: translateX(2px);
+  }
+  60% {
+    transform: translateX(-2px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.banner {
+  background-image: url("https://framerusercontent.com/images/ox1tg69dwg5TMb6flK8EvAlTY.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.backdrop_shaders {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #180f34 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  flex: none;
+  inset: -273px 290px 51px -557px;
+  overflow: hidden;
+  position: absolute;
+  top: 90px;
+  z-index: -1;
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
