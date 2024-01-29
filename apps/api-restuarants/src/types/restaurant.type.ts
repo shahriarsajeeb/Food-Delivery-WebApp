@@ -1,5 +1,5 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-import { Restaurant } from '../entities/restaurant.entities';
+import { ObjectType, Field } from "@nestjs/graphql";
+import { Restaurant } from "../entities/restaurant.entities";
 
 @ObjectType()
 export class ErrorType {
@@ -48,3 +48,5 @@ export class LogoutResposne {
   @Field()
   message?: string;
 }
+
+

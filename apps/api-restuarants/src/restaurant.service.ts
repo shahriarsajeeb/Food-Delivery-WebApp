@@ -1,12 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { JwtService, JwtVerifyOptions } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service';
-import { ConfigService } from '@nestjs/config';
-import { EmailService } from './email/email.service';
-import { ActivationDto, LoginDto, RegisterDto } from './dto/restaurant.dto';
-import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
-import { TokenSender } from './utils/send.token';
+import { BadRequestException, Injectable } from "@nestjs/common";
+import { JwtService, JwtVerifyOptions } from "@nestjs/jwt";
+import { PrismaService } from "../prisma/prisma.service";
+import { ConfigService } from "@nestjs/config";
+import { EmailService } from "./email/email.service";
+import { ActivationDto, LoginDto, RegisterDto } from "./dto/restaurant.dto";
+import * as bcrypt from "bcrypt";
+import { Response } from "express";
+import { TokenSender } from "./utils/send.token";
 
 interface Restaurant {
   name: string;
@@ -24,7 +24,7 @@ export class RestaurantService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly configService: ConfigService,
-    private readonly emailService: EmailService,
+    private readonly emailService: EmailService
   ) {}
 
   // register restaurant service
@@ -39,7 +39,7 @@ export class RestaurantService {
     });
     if (isEmailExist) {
       throw new BadRequestException(
-        'Restaurant already exist with this email!',
+        "Restaurant already exist with this email!"
       );
     }
 
@@ -51,7 +51,7 @@ export class RestaurantService {
 
     if (usersWithPhoneNumber) {
       throw new BadRequestException(
-        'Restaurant already exist with this phone number!',
+        "Restaurant already exist with this phone number!"
       );
     }
 
@@ -69,20 +69,20 @@ export class RestaurantService {
 
     const activationToken = await this.createActivationToken(restaurant);
 
-    const client_side_uri = this.configService.get<string>('CLIENT_SIDE_URI');
+    const client_side_uri = this.configService.get<string>("CLIENT_SIDE_URI");
 
     const activation_token = `${client_side_uri}/activate-account/${activationToken}`;
 
     await this.emailService.sendMail({
       email,
-      subject: 'Activate your restaurant account!',
-      template: './activation-mail',
+      subject: "Activate your restaurant account!",
+      template: "./activation-mail",
       name,
       activation_token,
     });
 
     return {
-      message: 'Please check your email to activate your account',
+      message: "Please check your email to activate your account",
       response,
     };
   }
@@ -94,9 +94,9 @@ export class RestaurantService {
         restaurant,
       },
       {
-        secret: this.configService.get<string>('JWT_SECRET_KEY'),
-        expiresIn: '5m',
-      },
+        secret: this.configService.get<string>("JWT_SECRET_KEY"),
+        expiresIn: "5m",
+      }
     );
     return activationToken;
   }
@@ -110,11 +110,11 @@ export class RestaurantService {
       restaurant: Restaurant;
       activationToken: string;
     } = this.jwtService.verify(activationToken, {
-      secret: this.configService.get<string>('JWT_SECRET_KEY'),
+      secret: this.configService.get<string>("JWT_SECRET_KEY"),
     } as JwtVerifyOptions);
 
     if (newRestaurant?.exp * 1000 < Date.now()) {
-      throw new BadRequestException('Invalid activation code');
+      throw new BadRequestException("Invalid activation code");
     }
 
     const { name, country, city, phone_number, password, email, address } =
@@ -128,7 +128,7 @@ export class RestaurantService {
 
     if (existRestaurant) {
       throw new BadRequestException(
-        'Restaurant already exist with this email!',
+        "Restaurant already exist with this email!"
       );
     }
 
@@ -169,7 +169,7 @@ export class RestaurantService {
         accessToken: null,
         refreshToken: null,
         error: {
-          message: 'Invalid email or password',
+          message: "Invalid email or password",
         },
       };
     }
@@ -178,7 +178,7 @@ export class RestaurantService {
   // compare with hashed password
   async comparePassword(
     password: string,
-    hashedPassword: string,
+    hashedPassword: string
   ): Promise<boolean> {
     return await bcrypt.compare(password, hashedPassword);
   }
@@ -196,6 +196,6 @@ export class RestaurantService {
     req.restaurant = null;
     req.refreshtoken = null;
     req.accesstoken = null;
-    return { message: 'Logged out successfully!' };
+    return { message: "Logged out successfully!" };
   }
 }

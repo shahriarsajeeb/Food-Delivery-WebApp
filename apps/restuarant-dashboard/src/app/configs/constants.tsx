@@ -3,7 +3,7 @@ import { Icons } from '../../utils/Icon';
 
 export const activeItem = atom<string>("/");
 
-export const sideBarItems: SibeBarItemsTypes[] = [
+export const sideBarItems: SideBarItemsTypes[] = [
   {
     title: 'Dashboard',
     url: '/',

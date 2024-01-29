@@ -1,4 +1,4 @@
-type SibeBarItemsTypes = {
+type SideBarItemsTypes = {
   title: string;
   url: string;
   icon: any;
@@ -6,13 +6,13 @@ type SibeBarItemsTypes = {
 
 type MUICircularColorType = {
   color:
-    | 'primary'
-    | 'secondary'
-    | 'error'
-    | 'info'
-    | 'success'
-    | 'warning'
-    | 'inherit';
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning"
+    | "inherit";
 };
 
 type DashboardCardType = {
@@ -29,10 +29,17 @@ type OrdersDataType = {
   email: string;
   title: string;
   price: number | string;
-  created_at: Date | string;
+  createdAt: Date | string;
 };
-
 
 type FoodCategoryType = {
   title: string;
-}
+};
+
+type FoodsDataType = {
+  id: string;
+  name: string;
+  price: number | string;
+  totalOrders: number;
+  createdAt: Date | string;
+};

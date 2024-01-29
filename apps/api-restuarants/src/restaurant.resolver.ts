@@ -1,47 +1,47 @@
-import { Args, Context, Mutation, Resolver, Query } from '@nestjs/graphql';
-import { RestaurantService } from './restaurant.service';
+import { Args, Context, Mutation, Resolver, Query } from "@nestjs/graphql";
+import { RestaurantService } from "./restaurant.service";
 import {
   ActivationResponse,
   LoginResponse,
   LogoutResposne,
   RegisterResponse,
-} from './types/user.type';
-import { ActivationDto, RegisterDto } from './dto/restaurant.dto';
-import { Response, Request } from 'express';
-import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from './guards/auth.guard';
+} from "./types/restaurant.type";
+import { ActivationDto, RegisterDto } from "./dto/restaurant.dto";
+import { Response, Request } from "express";
+import { UseGuards } from "@nestjs/common";
+import { AuthGuard } from "./guards/auth.guard";
 
-@Resolver('Restaurant')
+@Resolver("Restaurant")
 export class RestaurantResolver {
   constructor(private readonly restaurantService: RestaurantService) {}
 
   @Mutation(() => RegisterResponse)
   async registerRestaurant(
-    @Args('registerDto') registerDto: RegisterDto,
-    @Context() context: { res: Response },
+    @Args("registerDto") registerDto: RegisterDto,
+    @Context() context: { res: Response }
   ): Promise<RegisterResponse> {
     const { message } = await this.restaurantService.registerRestaurant(
       registerDto,
-      context.res,
+      context.res
     );
     return { message };
   }
 
   @Mutation(() => ActivationResponse)
   async activateRestaurant(
-    @Args('activationDto') activationDto: ActivationDto,
-    @Context() context: { res: Response },
+    @Args("activationDto") activationDto: ActivationDto,
+    @Context() context: { res: Response }
   ): Promise<ActivationResponse> {
     return await this.restaurantService.activateRestaurant(
       activationDto,
-      context.res,
+      context.res
     );
   }
 
   @Mutation(() => LoginResponse)
   async LoginRestaurant(
-    @Args('email') email: string,
-    @Args('password') password: string,
+    @Args("email") email: string,
+    @Args("password") password: string
   ): Promise<LoginResponse> {
     return await this.restaurantService.LoginRestuarant({ email, password });
   }
@@ -49,7 +49,7 @@ export class RestaurantResolver {
   @Query(() => LoginResponse)
   @UseGuards(AuthGuard)
   async getLoggedInRestaurant(
-    @Context() context: { req: Request },
+    @Context() context: { req: Request }
   ): Promise<LoginResponse> {
     return await this.restaurantService.getLoggedInRestaurant(context.req);
   }
